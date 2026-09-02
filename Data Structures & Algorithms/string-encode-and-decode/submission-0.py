@@ -2,32 +2,31 @@ class Solution:
 
     def encode(self, strs: List[str]) -> str:
         result = ""
-        for s in strs:
-            result += str(len(s)) + "#" + s
+
+        for word in strs:
+            result += str(len(word)) + "#" + word
 
         return result
 
-    def decode(self, encoded: str) -> List[str]:
+    def decode(self, s: str) -> List[str]:
         result = []
         i = 0
 
-        while i < len(encoded):
+        while i < len(s):
+
             j = i
 
-            # Find the '#'
-            while encoded[j] != "#":
+            while s[j] != "#":
                 j += 1
 
-            # Length of the next string
-            length = int(encoded[i:j])
+            length = int(s[i:j])
 
-            # Extract the string
-            start = j + 1
-            end = start + length
+            j += 1
 
-            result.append(encoded[start:end])
+            word = s[j:j + length]
 
-            # Move to the next encoded string
-            i = end
+            result.append(word)
+
+            i = j + length
 
         return result
