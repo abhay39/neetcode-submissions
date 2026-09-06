@@ -1,27 +1,32 @@
 class TimeMap:
 
     def __init__(self):
-        self.info={}
+        self.seen = {}
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        if key not in self.info:
-            self.info[key] = []
+        if key not in self.seen:
+            self.seen[key] = []
 
-        self.info[key].append({
-            "val": value,
-            "timestamp": timestamp
-        })
+        self.seen[key].append((timestamp, value))
 
     def get(self, key: str, timestamp: int) -> str:
-        if key not in self.info:
+        if key not in self.seen:
             return ""
+
+        values = self.seen[key]
+
+        left = 0
+        right = len(values) - 1
 
         result = ""
 
-        for item in self.info[key]:
-            if item["timestamp"] <= timestamp:
-                result = item["val"]
+        while left <= right:
+            mid = (left + right) // 2
+
+            if values[mid][0] <= timestamp:
+                result = values[mid][1]
+                left = mid + 1
             else:
-                break
+                right = mid - 1
 
         return result
