@@ -8,11 +8,11 @@ class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         prev=None
         curr=head
-        nxt=None
 
-        while curr!=None:
-            nxt=curr.next
+        while curr is not None:
+            next_node=curr.next
             curr.next=prev
             prev=curr
-            curr=nxt
+            curr=next_node
+
         return prev
